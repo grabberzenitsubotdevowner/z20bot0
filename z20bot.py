@@ -7,7 +7,7 @@ import os
 import sys
 import re
 from datetime import datetime, timedelta
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait, UserNotParticipant
 
@@ -3025,20 +3025,16 @@ async def main():
     print(f"💬 Support Group: {SUPPORT_GROUP}")
     print("✅ Bot is running!")
     print("bot started")
-    
-    await app.start()
-    
+
     # Start background tasks
     asyncio.create_task(char_drop_system())
     asyncio.create_task(check_auction_ends())
-    
-    # Keep bot running
-    while True:
-        await asyncio.sleep(3600)
+
+    await idle()
 
 if __name__ == "__main__":
     try:
         app.run(main())
     except KeyboardInterrupt:
         print("👋 Bot stopped!")
-        sys.exit(0)  
+        sys.exit(0)
